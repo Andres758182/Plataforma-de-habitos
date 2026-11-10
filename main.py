@@ -1,3 +1,11 @@
+import os
+
+from connect import connect
+
+session, client, db = connect()
+
+BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
+
 # ------------------------
 # MENU
 # ------------------------
