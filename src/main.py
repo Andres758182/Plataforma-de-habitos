@@ -1,6 +1,6 @@
 import os
 
-from connect import connect
+from app import connect
 
 session, client, db = connect()
 
