@@ -9,6 +9,7 @@ from pymongo import MongoClient
 
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
 MONGO_DATABASE = os.getenv("MONGO_DATABASE", "bookstore")
+
 CASSANDRA_CLUSTER_IPS = [
     host.strip()
     for host in os.getenv("CASSANDRA_CLUSTER_IPS", "127.0.0.1").split(",")
@@ -20,8 +21,11 @@ mongo_client = MongoClient(
     MONGO_URI,
     serverSelectionTimeoutMS=5000,
 )
+
 db = mongo_client[MONGO_DATABASE]
 
+client_stub = pydgraph.DgraphClientStub('localhost:9080')
+client = pydgraph.DgraphClient(client_stub)
 
 def connect():
     cluster = Cluster(CASSANDRA_CLUSTER_IPS)
@@ -35,11 +39,6 @@ def connect():
 app = falcon.asgi.App()
 
 app.add_route("/users")
-app.add_route("/users/friends")
-app.add_route("/users/estadistic")
-app.add_route("/users/history")
-app.add_route("/users/habits")
-app.add_route("/users/habits/history")
 app.add_route("/users/{id}")
 app.add_route("/habits")
 app.add_route("/habits/{id}")

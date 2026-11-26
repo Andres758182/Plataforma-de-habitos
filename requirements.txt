@@ -1,0 +1,7 @@
+pydgraph
+falcon
+pymongo
+uvicorn
+requests
+cassandra-driver
+time_uuid
